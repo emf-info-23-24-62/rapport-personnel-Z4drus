@@ -215,6 +215,8 @@ Astuce: extraire les prédicats (fonctions qui retournent `true/false`) les rend
 
 ## reduce
 
+La fonction reduce() permet de réduire un tableau à une seule valeur en appliquant une fonction à chaque élément.
+
 Rappel rapide: `array.reduce(fn, init)` accumule en une seule valeur. `fn(acc, cur)` doit retourner le nouvel accumulateur.
 
 Exemples utiles:
