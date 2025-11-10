@@ -71,6 +71,21 @@
 - [Fonctions](#fonctions)
   - [Déclaration de fonction](#déclaration-de-fonction)
   - [Fonctions immédiatement invoquées (IIFE)](#fonctions-immédiatement-invoquées-iife)
+- [Programmation fonctionnelle — Cas pratiques](#programmation-fonctionnelle--cas-pratiques)
+  - [Données utilisées](#données-utilisées)
+  - [Boîte à outils réutilisable](#boîte-à-outils-réutilisable)
+  - [A01 - La plus petite et la plus grande date](#a01---la-plus-petite-et-la-plus-grande-date)
+  - [A02 - Le chiffre d'affaire quotidien moyen](#a02---le-chiffre-daffaire-quotidien-moyen)
+  - [A03 - Liste des clients par id](#a03---liste-des-clients-par-id)
+  - [A04 - Liste des clients et leur CA](#a04---liste-des-clients-et-leur-ca)
+  - [A05 - CA et nbre de ventes par jour de la semaine](#a05---ca-et-nbre-de-ventes-par-jour-de-la-semaine)
+  - [A06 - CA par type de produit](#a06---ca-par-type-de-produit)
+  - [A07 - Types de produits et leurs produits](#a07---types-de-produits-et-leur-produits)
+  - [A08 - Nbre de vente des produits par type](#a08---nbre-de-vente-des-produits-par-type)
+  - [A09 - Toutes les ventes réalisées](#a09---toutes-les-ventes-réalisées)
+  - [A10 - TOP 6 des produits générant le plus de CA](#a10---le-top-6-des-produits-générant-le-plus-de-ca)
+  - [A11 - Liste des clients triée nom/prénom](#a11---la-liste-des-clients-triée-par-nom-puis-par-prénom)
+  - [A12 - TOP 5 des meilleures dates et leur CA](#a12---le-top-5-des-meilleures-dates-et-leur-ca)
 - [Conclusion](#conclusion)
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -204,102 +219,119 @@ console.log(maintenant.toISOString()); // ex: "2025-06-06T13:23:42.123Z"
 Lien vers la documentation officielle : [https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math)
 
 ## `Math.PI` - la constante π
-
-Description à faire par vos soins...
+ 
+Constante représentant π (~3.14159). Utile pour périmètre et aire d’un cercle.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const r = 3;
+const perimetre = 2 * Math.PI * r;   // 18.849...
+const aire      = Math.PI * r ** 2;  // 28.274...
 ```
 
 ## `Math.abs()` - la \|valeur absolue\| d'un nombre
-
-Description à faire par vos soins...
+ 
+Retourne la distance à zéro (toujours positive).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.abs(-3);         // 3
+Math.abs(5 - 12);     // 7
+[-2, -1, 0, 3].map(Math.abs); // [2,1,0,3]
 ```
 
 ## `Math.pow()` - élever à une puissance
-
-Description à faire par vos soins...
+ 
+Élever un nombre à une puissance. Équivalent moderne: l’opérateur `**`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.pow(2, 3); // 8
+2 ** 3;         // 8
+Math.pow(9, 0.5); // 3   (racine carrée)
 ```
 
 ## `Math.min()` - plus petite valeur
-
-Description à faire par vos soins...
+ 
+Plus petit des arguments. Avec un tableau, utiliser l’opérateur spread.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.min(3, 7, 1);                 // 1
+const arr = [3, 7, 1];
+Math.min(...arr);                  // 1
+// Cas vide
+Math.min();                        // Infinity
+const minSafe = arr.length ? Math.min(...arr) : undefined;
 ```
 
 ## `Math.max()` - plus grande valeur
-
-Description à faire par vos soins...
+ 
+Plus grand des arguments. Avec un tableau, utiliser l’opérateur spread.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.max(3, 7, 1);                 // 7
+const arr = [3, 7, 1];
+Math.max(...arr);                  // 7
+// Cas vide
+Math.max();                        // -Infinity
+const maxSafe = arr.length ? Math.max(...arr) : undefined;
 ```
 
 ## `Math.ceil()` - arrondir à la prochaine valeur entière la plus proche
-
-Description à faire par vos soins...
+ 
+Arrondi vers le haut (vers +∞).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.ceil(2.01);  // 3
+Math.ceil(2.9);   // 3
+Math.ceil(-1.2);  // -1
 ```
 
 ## `Math.floor()` - arrondir à la précédente valeur entière la plus proche
-
-Description à faire par vos soins...
+ 
+Arrondi vers le bas (vers −∞).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.floor(2.9);   // 2
+Math.floor(2.01);  // 2
+Math.floor(-1.2);  // -2
 ```
 
 ## `Math.round()` - arrondir à la valeur entière la plus proche
-
-Description à faire par vos soins...
+ 
+Arrondi au plus proche (les .5 vont vers +∞).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.round(2.49); // 2
+Math.round(2.5);  // 3
+Math.round(-1.5); // -1
 ```
 
 ## `Math.trunc()` - supprime la virgule et retourne la partie entière d'un nombre
-
-Description à faire par vos soins...
+ 
+Supprime la partie décimale (ne fait pas d’arrondi).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.trunc(2.9);   // 2
+Math.trunc(-1.9);  // -1
 ```
 
 ## `Math.sqrt()` - la raçine carrée d'un nombre
-
-Description à faire par vos soins...
+ 
+Racine carrée d’un nombre (NaN pour un négatif).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+Math.sqrt(9);   // 3
+Math.sqrt(2);   // 1.4142...
+Math.sqrt(-1);  // NaN
 ```
 
 ## `Math.random()` - générer un nombre aléatoire entre 0.0 (compris) et 1.0 (non compris)
-
-Description à faire par vos soins...
+ 
+Retourne un flottant x tel que 0 ≤ x < 1. Utile pour générer un entier dans un intervalle.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const x = Math.random(); // 0 <= x < 1
+const int0to9 = Math.floor(Math.random() * 10);         // 0..9
+const dice1to6 = Math.floor(Math.random() * 6) + 1;     // 1..6
+const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -311,21 +343,23 @@ SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
 Lien vers la documentation officielle : [https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/JSON](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/JSON)
 
 ## `JSON.stringify()` - transformer un objet Javascript en JSON
-
-Description à faire par vos soins...
+ 
+Sérialise un objet JS en chaîne JSON. Paramètre 2/3 pour contrôler replacer et indentation.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const obj = { id: 1, nom: 'Ana', tags: ['js','fp'] };
+const json = JSON.stringify(obj);           // "{\"id\":1,\"nom\":\"Ana\",\"tags\":[\"js\",\"fp\"]}"
+const pretty = JSON.stringify(obj, null, 2); // indenté sur 2 espaces
 ```
 
 ## `JSON.parse()` - transformer du JSON en objet Javascript
-
-Description à faire par vos soins...
+ 
+Désérialise une chaîne JSON en objet JS. Peut lever une exception si la chaîne est invalide.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const txt = '{"id":1,"nom":"Ana"}';
+const data = JSON.parse(txt); // { id:1, nom:'Ana' }
+// Attention: JSON.parse('{"id":}') lèvera une erreur (try/catch au besoin).
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -337,30 +371,33 @@ SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
 Lien vers la documentation officielle : [https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 ## `split()` - un ciseau qui coupe une chaîne là où un caractère apparaît et produit un tableau
-
-Description à faire par vos soins...
+ 
+Découpe une chaîne selon un séparateur (caractère ou regex) et retourne un tableau.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+'a,b,c'.split(',');                 // ['a','b','c']
+'Hello  world'.split(/\s+/);        // ['Hello','world']
+'2025-11-10'.split('-').map(Number);// [2025,11,10]
 ```
 
 ## `trim()`, `trimStart()` et `trimEnd()` - épuration des espaces en trop dans une chaîne (trimming)
-
-Description à faire par vos soins...
+ 
+Supprime les espaces en début/fin (`trim`), uniquement début (`trimStart`) ou fin (`trimEnd`).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+'  Hello  '.trim();       // 'Hello'
+'  Hello  '.trimStart();  // 'Hello  '
+'  Hello  '.trimEnd();    // '  Hello'
 ```
 
 ## `padStart()` et `padEnd()` - aligner le contenu dans une chaîne de caractères
-
-Description à faire par vos soins...
+ 
+Complète une chaîne avec des caractères jusqu’à atteindre une longueur donnée (début/fin).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+'5'.padStart(2, '0');      // '05'  (ex: numéros, dates)
+'JS'.padEnd(5, '.');       // 'JS...'
+`${42}`.padStart(4);       // '  42' (espaces par défaut)
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -378,30 +415,34 @@ console.log('Coucou !'); // Coucou !
 ```
 
 ## `console.info()`, `warn()` et `error()` - Afficher un message sur la console (filtrables)
-
-Description à faire par vos soins...
+ 
+Variantes de log avec niveaux d’importance (filtrables dans les DevTools).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+console.info('Info:', { step: 1 });
+console.warn('Attention: quota élevé');
+console.error('Erreur critique', new Error('Oups'));
 ```
 
 ## `console.table()` - Afficher tout un tableau ou un objet sur la console
-
-Description à faire par vos soins...
+ 
+Affiche un tableau d’objets sous forme de table lisible.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const users = [{ id:1, nom:'Ana' }, { id:2, nom:'Noé' }];
+console.table(users);
 ```
 
 ## `console.time()`, `timeLog()` et `timeEnd()` - Chronométrer une durée d'exécution
-
-Description à faire par vos soins...
+ 
+Mesurer une durée entre `time()` et `timeEnd()` (avec logs intermédiaires via `timeLog()`).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+console.time('task');
+// ... code ...
+console.timeLog('task', 'milestone atteint');
+// ... code ...
+console.timeEnd('task'); // 'task: 12.34 ms'
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -413,219 +454,273 @@ SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
 Lien vers la documentation officielle : [https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array)
 
 ## `forEach` - parcourir les éléments d'un tableau
-
-Description à faire par vos soins...
+ 
+Itérer pour des effets de bord (log, push, DOM…). Ne retourne rien d’utile (toujours `undefined`).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const arr = [1,2,3];
+arr.forEach((n, i) => console.log(i, n));
 ```
 
 ## `entries()` - parcourir les couples index/valeurs d'un tableau
-
-Description à faire par vos soins...
+ 
+Retourne un itérateur `[index, valeur]`. Pratique avec `for...of`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const arr = ['a','b','c'];
+for (const [i, v] of arr.entries()) {
+  console.log(i, v);
+}
 ```
 
 ## `in` - parcourir les clés d'un tableau
-
-Description à faire par vos soins...
+ 
+`for...in` parcourt les clés (indices sous forme de chaînes) et propriétés énumérables. Pour les tableaux, préférer `for...of` ou les méthodes `map/filter/...`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const arr = ['a','b'];
+for (const i in arr) { console.log(i, arr[i]); } // i: '0','1'
 ```
 
 ## `of` - parcourir les valeurs d'un tableau
-
-Description à faire par vos soins...
+ 
+`for...of` parcourt directement les valeurs d’un itérable (tableau, Set, Map…).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+for (const v of ['a','b','c']) { console.log(v); }
 ```
 
 ## `find()` - premier élément qui satisfait une condition
-
-Description à faire par vos soins...
+ 
+Retourne le premier élément qui passe le test, sinon `undefined`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const users = [{id:1},{id:2}];
+users.find(u => u.id === 2); // {id:2}
+users.find(u => u.id === 3); // undefined
 ```
 
 ## `findIndex()` - premier index qui satisfait une condition
-
-Description à faire par vos soins...
+ 
+Retourne l’index du premier match, sinon `-1`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+['a','b','c'].findIndex(x => x === 'b'); // 1
+['a','b'].findIndex(x => x === 'z');     // -1
 ```
 
 ## `indexOf()` et `lastIndexOf()` - premier/dernier élément qui correspond
-
-Description à faire par vos soins...
+ 
+Recherche par égalité stricte (valeurs primitives). `indexOf` depuis le début, `lastIndexOf` depuis la fin.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const arr = ['a','b','a'];
+arr.indexOf('a');      // 0
+arr.lastIndexOf('a');  // 2
+arr.indexOf('z');      // -1
 ```
 
 ## `push()`, `pop()`, `shift()` et `unshift()` - ajouter/supprime au début/fin dans un tableau
-
-Description à faire par vos soins...
+ 
+Méthodes mutables: `push`/`pop` fin du tableau, `unshift`/`shift` début du tableau.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const a = [1];
+a.push(2);     // a = [1,2]
+a.pop();       // a = [1]
+a.unshift(0);  // a = [0,1]
+a.shift();     // a = [1]
 ```
 
 ## `slice()` - ne conserver que certaines lignes d'un tableau
-
-Description à faire par vos soins...
+ 
+Retourne une copie partielle (non mutante). Fin exclue. Indices négatifs pris depuis la fin.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const a = ['a','b','c','d'];
+a.slice(1, 3);   // ['b','c']
+a.slice(-2);     // ['c','d']
 ```
 
 ## `splice()` - supprimer/insérer/remplacer des valeurs dans un tableau
-
-Description à faire par vos soins...
+ 
+Modifie le tableau en place et retourne les éléments supprimés.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const a = ['a','b','c'];
+a.splice(1, 1);            // supprime 'b' → retourne ['b']; a = ['a','c']
+a.splice(1, 0, 'X','Y');   // insère → a = ['a','X','Y','c']
 ```
 
 ## `concat()` - joindre deux tableaux
-
-Description à faire par vos soins...
+ 
+Retourne un nouveau tableau avec les éléments de plusieurs listes.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+[1,2].concat([3,4]);   // [1,2,3,4]
+// alternatif moderne
+[...['a','b'], ...['c']]; // ['a','b','c']
 ```
 
 ## `join()` - joindre des chaînes de caractères
-
-Description à faire par vos soins...
+ 
+Concatène les éléments d’un tableau en une chaîne (séparateur par défaut: `,`).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+['a','b','c'].join('-'); // 'a-b-c'
 ```
 
 ## `keys()` et `values()` - les clés/valeurs d'un objet
-
-Description à faire par vos soins...
+ 
+Lister les clés, valeurs (ou couples) d’un objet via `Object.*`.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const user = { id:1, nom:'Ana' };
+Object.keys(user);    // ['id','nom']
+Object.values(user);  // [1,'Ana']
+Object.entries(user); // [['id',1],['nom','Ana']]
 ```
 
 ## `includes()` - vérifier si une valeur est présente dans un tableau
-
-Description à faire par vos soins...
+ 
+Teste la présence d’une valeur (utilise SameValueZero: gère aussi `NaN`).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+[1,2,3].includes(2);     // true
+[NaN].includes(NaN);     // true
+['a','b'].includes('z'); // false
 ```
 
 ## `every()` et `some()` - vérifier si plusieurs valeurs sont toutes/quelques présentes dans un tableau
-
-Description à faire par vos soins...
+ 
+`every`: tous les éléments passent le test. `some`: au moins un élément passe.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const nums = [2,4,6];
+nums.every(n => n % 2 === 0); // true
+nums.some(n => n > 5);        // true
 ```
 
 ## `fill()` - remplir un tableau avec des valeurs
-
-Description à faire par vos soins...
+ 
+Remplit une portion (mutant) avec une valeur. Utile pour initialiser des tableaux.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+new Array(3).fill(0);        // [0,0,0]
+const a = [1,2,3,4]; a.fill(9, 1, 3); // [1,9,9,4]
+// Attention: a.fill({}) réplique la même référence d'objet
 ```
 
 ## `flat()` - aplatir un tableau
-
-Description à faire par vos soins...
+ 
+Aplati d’un certain niveau (1 par défaut). `Infinity` pour tout aplatir.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+[1,[2,3],[4,[5]]].flat();     // [1,2,3,4,[5]]
+[1,[2,3],[4,[5]]].flat(2);    // [1,2,3,4,5]
 ```
 
 ## `sort()` - pour trier un tableau
-
-Description à faire par vos soins...
+ 
+Trie sur place. Par défaut: ordre lexicographique. Utiliser une fonction de comparaison pour les nombres/objets.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+[3, 20, 5].sort();           // [20,3,5] (lexicographique)
+[3, 20, 5].sort((a,b) => a-b); // [3,5,20]
+[{nom:'Ana'},{nom:'Noé'}].sort((a,b) => a.nom.localeCompare(b.nom));
 ```
 
 ## `map()` - tableau avec les résultats d'une fonction
-
-Description à faire par vos soins...
+ 
+En langage humain: transformer chaque élément du tableau en quelque chose d'autre, sans changer la longueur. Idéal pour formater, extraire des champs, calculer des valeurs dérivées. Ne pas muter les éléments originaux.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+// Transformer
+const nums = [1, 2, 3];
+const doubled = nums.map(n => n * 2); // [2, 4, 6]
+
+// Extraire un champ
+const produits = [{ id: 1, nom: 'Stylo', prix: 2.5 }, { id: 2, nom: 'Cahier', prix: 4.2 }];
+const noms = produits.map(p => p.nom); // ['Stylo','Cahier']
+
+// Formater
+const labels = produits.map(p => `${p.nom} – CHF ${p.prix.toFixed(2)}`);
+
+// Ajouter un champ dérivé (sans muter)
+const avecTVA = produits.map(p => ({ ...p, prixTTC: +(p.prix * 1.077).toFixed(2) }));
 ```
 
 ## `filter()` - tableau avec les éléments passant un test
-
-Description à faire par vos soins...
+ 
+En langage humain: garder uniquement ce qui nous intéresse selon un test (prédicat). La longueur peut diminuer. Parfait pour nettoyer, rechercher, appliquer des règles métier.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+// Garder les pairs
+const nums = [1,2,3,4,5,6];
+const pairs = nums.filter(n => n % 2 === 0); // [2,4,6]
+
+// Filtrer des objets
+const users = [{nom:'Ana', age:22},{nom:'Noé', age:17},{nom:'Léa', age:19}];
+const majeurs = users.filter(u => u.age >= 18); // Ana, Léa
+
+// Nettoyer une liste (retirer valeurs falsy)
+const brut = ['A', '', null, 'B', undefined, 'C'];
+const propre = brut.filter(Boolean); // ['A','B','C']
 ```
 
 ## `groupBy()` - regroupe les éléments d'un tableau selon un règle
-
-Description à faire par vos soins...
+ 
+Regroupe par clé dérivée. Variante portable via `reduce` (sans API expérimentale).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const groupBy = (arr, keyFn) => arr.reduce((acc, x) => {
+  const k = keyFn(x);
+  (acc[k] ||= []).push(x);
+  return acc;
+}, {});
+// ex:
+groupBy(['an','as','bo'], s => s[0]); // { a:['an','as'], b:['bo'] }
 ```
 
 ## `flatMap()` - chaînage de map() et flat()
-
-Description à faire par vos soins...
+ 
+Applique un `map` qui retourne des tableaux, puis aplati d’un niveau en une seule passe.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+['a b','c'].flatMap(s => s.split(' ')); // ['a','b','c']
+// équiv. à: arr.map(...).flat()
 ```
 
 ## `reduce()` et `reduceRight()` - réduire un tableau à une seule valeur
-
-Description à faire par vos soins...
+ 
+En langage humain: tout combiner en un résultat unique (nombre, objet, tableau, Set…) en accumulant pas à pas. On démarre avec une valeur initiale et on «plie» la liste.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+// Somme
+const nums = [2, 5, 7];
+const somme = nums.reduce((acc, n) => acc + n, 0); // 14
+
+// Min / Max
+const min = nums.reduce((m, n) => n < m ? n : m, +Infinity); // 2
+const max = nums.reduce((m, n) => n > m ? n : m, -Infinity); // 7
+
+// Compter les occurrences
+const fruits = ['pomme','banane','pomme','kiwi'];
+const compte = fruits.reduce((acc, f) => ((acc[f] = (acc[f]||0)+1), acc), {});
+// { pomme: 2, banane: 1, kiwi: 1 }
+
+// Regrouper par clé (clé -> tableau)
+const animaux = [{nom:'Tigrou', type:'chat'},{nom:'Rex', type:'chien'},{nom:'Maya', type:'chat'}];
+const groupes = animaux.reduce((acc, a) => ((acc[a.type] ??= []).push(a), acc), {});
 ```
 
 ## `reverse()` - inverser l'ordre du tableau
-
-Description à faire par vos soins...
+ 
+Inverse l’ordre des éléments (mutant).
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const a = [1,2,3];
+a.reverse(); // a = [3,2,1]
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -635,21 +730,29 @@ SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
 # Techniques
 
 ## ``(backticks) - pour des expressions intelligentes
-
-Description à faire par vos soins...
+ 
+Les «template literals» permettent l’interpolation (`${expr}`), les chaînes multi‑lignes et des tags avancés.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const nom = 'Ana', total = 12.5;
+const msg = `Bonjour ${nom}, votre total est CHF ${total.toFixed(2)}.`;
+// Multi-ligne:
+const html = `
+  <div class="box">
+    <p>${msg}</p>
+  </div>
+`;
 ```
 
 ## `new Set()` - pour supprimer les doublons
-
-Description à faire par vos soins...
+ 
+Structure d’ensemble: garde des valeurs uniques. Idéal pour dédupliquer.
 
 ```javascript
-A FAIRE PAR VOS SOINS...
-SIMPLE, DROIT AU BUT, UTILE, STYLE PENSE-BÊTE
+const arr = [1,2,2,3,1];
+const uniques = [...new Set(arr)]; // [1,2,3]
+// API utile:
+const s = new Set(); s.add(1); s.add(1); s.has(1); // true
 ```
 
 <svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
@@ -706,6 +809,229 @@ ou
 
 ```javascript
 (() => { ... })()
+```
+
+<svg height="12" width="100%" style="padding-top:2em;padding-bottom:1em">
+  <rect y="5" width="100%" height="5" fill="#7191B8"/>
+</svg>
+
+# Programmation fonctionnelle — Cas pratiques
+
+Ces exemples montrent comment résoudre des besoins concrets en utilisant `map`, `filter`, `reduce`, `flat`, `flatMap`, `sort`… en mode déclaratif et réutilisable.
+
+## Données utilisées
+
+```javascript
+// jsonData.ventes est un tableau d'objets "vente"
+// Chaque "vente" a une date (YYYY-MM-DD), un jour, un client et une liste de produits
+// (structure représentative)
+const jsonData = {
+  ventes: [
+    {
+      date: "2024-09-02",
+      jour: "lundi", // parfois calculable via new Date(date).getDay()
+      client: { id: "ID...", nom: "Nom", prenom: "Prénom" },
+      produits: [
+        { id: "IDP...", type: "Boisson chaude", nom: "Café", prix: 2.0 },
+        // ...
+      ]
+    },
+    // ...
+  ]
+};
+```
+
+## Boîte à outils réutilisable
+
+```javascript
+// Capitaliser un prénom: "alEx" -> "Alex"
+const formatPrenom = p => p ? p.charAt(0).toUpperCase() + p.slice(1).toLowerCase() : p;
+
+// Somme du prix d'une vente (liste de produits)
+const sommePrixVente = (vente) => vente.produits.reduce((s, p) => s + p.prix, 0);
+
+// Top N générique (copie pour ne pas muter)
+const topN = (arr, n, keyFn) => [...arr].sort((a, b) => keyFn(b) - keyFn(a)).slice(0, n);
+```
+
+## A01 - La plus petite et la plus grande date
+
+Objectif: retrouver `dateMin` et `dateMax` en une passe.
+
+```javascript
+const rapportA01 = (jsonData) => jsonData.ventes.reduce((acc, v) => {
+  const d = v.date;
+  return {
+    dateMin: acc.dateMin === null || d < acc.dateMin ? d : acc.dateMin,
+    dateMax: acc.dateMax === null || d > acc.dateMax ? d : acc.dateMax
+  };
+}, { dateMin: null, dateMax: null });
+```
+
+## A02 - Le chiffre d'affaire quotidien moyen
+
+Idée: sommer tous les CA des ventes et diviser par le nombre de dates distinctes.
+
+```javascript
+const rapportA02 = (jsonData) => {
+  const { totalCA, jours } = jsonData.ventes.reduce((acc, v) => {
+    const caVente = v.produits.reduce((s, p) => s + p.prix, 0);
+    acc.totalCA += caVente;
+    acc.jours.add(v.date);
+    return acc;
+  }, { totalCA: 0, jours: new Set() });
+  return totalCA / jours.size;
+};
+```
+
+## A03 - Liste des clients par id
+
+Objectif: indexer les clients par `id` (clé → valeur).
+
+```javascript
+const rapportA03 = (jsonData) => jsonData.ventes.reduce((acc, v) => {
+  const { id, nom, prenom } = v.client;
+  if (!acc[id]) acc[id] = { nom, prenom };
+  return acc;
+}, {});
+```
+
+## A04 - Liste des clients et leur CA
+
+On agrège le CA par client, puis on retourne les valeurs sous forme de tableau.
+
+```javascript
+const rapportA04 = (jsonData) => {
+  const map = jsonData.ventes.reduce((acc, v) => {
+    const { id, nom, prenom } = v.client;
+    const caVente = v.produits.reduce((s, p) => s + p.prix, 0);
+    if (!acc[id]) acc[id] = { id, nom, prenom, ca: 0 };
+    acc[id].ca += caVente;
+    return acc;
+  }, {});
+  return Object.values(map);
+};
+```
+
+## A05 - CA et nombre de ventes par jour de la semaine
+
+Selon les données, `vente.jour` peut être déjà présent. Sinon, on peut dériver avec `new Date(vente.date).getDay()`.
+
+```javascript
+const rapportA05 = (jsonData) => jsonData.ventes.reduce((acc, v) => {
+  const jour = v.jour;
+  const caVente = v.produits.reduce((s, p) => s + p.prix, 0);
+  const courant = acc[jour] || { ca: 0, nbre_ventes: 0 };
+  acc[jour] = { ca: courant.ca + caVente, nbre_ventes: courant.nbre_ventes + v.produits.length };
+  return acc;
+}, {});
+```
+
+## A06 - CA par type de produit
+
+On aplatit d’abord toutes les lignes de produits, puis on agrège par `type`.
+
+```javascript
+const rapportA06 = (jsonData) => jsonData.ventes
+  .flatMap(v => v.produits)
+  .reduce((acc, p) => {
+    acc[p.type] = (acc[p.type] || 0) + p.prix;
+    return acc;
+  }, {});
+```
+
+## A07 - Types de produits et leurs produits (noms uniques)
+
+On utilise des `Set` pour dédupliquer, puis on transforme en tableaux simples.
+
+```javascript
+const rapportA07 = (jsonData) => {
+  const sets = jsonData.ventes.reduce((acc, v) => {
+    return v.produits.reduce((a, p) => {
+      (a[p.type] ||= new Set()).add(p.nom);
+      return a;
+    }, acc);
+  }, {});
+  return Object.fromEntries(
+    Object.entries(sets).map(([type, s]) => [type, Array.from(s)])
+  );
+};
+```
+
+## A08 - Nombre de ventes des produits par type
+
+Agrégation imbriquée: `type` → `nom` → compteur.
+
+```javascript
+const rapportA08 = (jsonData) => jsonData.ventes.reduce((acc, v) => {
+  return v.produits.reduce((a, p) => {
+    (a[p.type] ||= {});
+    a[p.type][p.nom] = (a[p.type][p.nom] || 0) + 1;
+    return a;
+  }, acc);
+}, {});
+```
+
+## A09 - Toutes les ventes réalisées (liste à plat)
+
+On projette chaque produit en une ligne “vente” au format souhaité.
+
+```javascript
+const rapportA09 = (jsonData) => jsonData.ventes.flatMap(v =>
+  v.produits.map(p => ({ id: p.id, type: p.type, nom: p.nom, prix: p.prix }))
+);
+```
+
+## A10 - TOP 6 des produits générant le plus de CA
+
+Agrégation par `id` de produit → tri décroissant → coupe `TOP 6`.
+
+```javascript
+const rapportA10 = (jsonData, TOP = 6) => {
+  const agregats = jsonData.ventes.reduce((acc, v) => {
+    return v.produits.reduce((a, p) => {
+      if (!a[p.id]) a[p.id] = { id: p.id, nom: p.nom, ca: 0 };
+      a[p.id].ca += p.prix;
+      return a;
+    }, acc);
+  }, {});
+  return Object.values(agregats).sort((a, b) => b.ca - a.ca).slice(0, TOP);
+};
+```
+
+## A11 - La liste des clients, triée par nom puis par prénom
+
+On dédoublonne par `id`, on transforme le nom/prénom, puis on trie.
+
+```javascript
+const rapportA11 = (jsonData) => {
+  const uniques = Object.values(jsonData.ventes.reduce((acc, v) => {
+    const { id, nom, prenom } = v.client;
+    if (!acc[id]) acc[id] = { nom, prenom };
+    return acc;
+  }, {}));
+  return uniques
+    .map(c => ({ nom: c.nom.toUpperCase(), prenom: formatPrenom(c.prenom) }))
+    .sort((a, b) => a.nom.localeCompare(b.nom) || a.prenom.localeCompare(b.prenom));
+};
+```
+
+## A12 - Le TOP 5 des meilleures dates et leur CA
+
+Agrégation par date → conversion en tableau → tri → coupe `TOP 5`.
+
+```javascript
+const rapportA12 = (jsonData, TOP = 5) => {
+  const caParDate = jsonData.ventes.reduce((acc, v) => {
+    const caVente = v.produits.reduce((s, p) => s + p.prix, 0);
+    acc[v.date] = (acc[v.date] || 0) + caVente;
+    return acc;
+  }, {});
+  return Object.entries(caParDate)
+    .map(([date, ca]) => ({ date, ca }))
+    .sort((a, b) => b.ca - a.ca)
+    .slice(0, TOP);
+};
 ```
 
 # Conclusion
